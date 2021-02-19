@@ -80,7 +80,7 @@ const crearElementos = (hora, placa) => {
   const horaNuevoIngreso = document.createElement("small");
   const botonEliminar = document.createElement("button");
 
-  vehiculoIcono.innerText = "🚗";
+  vehiculoIcono.innerText = "🚙";
   placaNuevoIngreso.innerText = placa;
   horaNuevoIngreso.innerText = hora;
   botonEliminar.innerText = "Eliminar";
@@ -89,7 +89,42 @@ const crearElementos = (hora, placa) => {
   celdaVacia.appendChild(placaNuevoIngreso);
   celdaVacia.appendChild(horaNuevoIngreso);
   celdaVacia.appendChild(botonEliminar);
+
 };
+
+const espaciosLlenos = (celdasVacias) => {
+  // Crea un h4 para agregar el aviso
+  const espacioLlenoBanner = document.createElement("h4");
+
+  // Jala h3 para realizar append child
+  const h3 = document.querySelector("h3");
+  
+  if (celdasVacias.length == 0) {
+    // Se oculta el form
+    formulario.style.display = "none" ; 
+
+    // Agrega aviso en el DOM 
+    espacioLlenoBanner.innerText = "Parqueo lleno! 🚫";
+
+    // Agrega estilos al aviso
+    espacioLlenoBanner.style.color = "red";
+    espacioLlenoBanner.style.padding = "6px";
+    espacioLlenoBanner.style.backgroundColor = "pink";
+    espacioLlenoBanner.style.borderRadius = "6px";
+    espacioLlenoBanner.style.width = "200px";
+    espacioLlenoBanner.style.border = "1px solid red";
+    espacioLlenoBanner.style.textTransform = "uppercase";
+  
+    // Agrega aviso en el DOM debajo del h3
+    h3.appendChild(espacioLlenoBanner);
+
+  } else {
+    // Devuelve opcion de agregar elementos 
+    formulario.style.display = "block"; 
+  } 
+
+}
+
 
 const actualizarMensaje = () => {
   // Guardar el b dentro del h3
@@ -100,6 +135,9 @@ const actualizarMensaje = () => {
 
   // Agregar la cantidad de celdas vacias a `espaciosLibres`
   espaciosLibres.innerText = celdasVacias.length;
+
+  espaciosLlenos(celdasVacias) ;
+
 };
 
 formulario.addEventListener("submit", (e) => {
@@ -115,6 +153,8 @@ formulario.addEventListener("submit", (e) => {
   } else {
     alert("Favor ingrese una placa");
   }
+
+
 
   input.value = "";
 });
